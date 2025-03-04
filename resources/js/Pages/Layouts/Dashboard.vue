@@ -13,14 +13,14 @@
                         <summary><i class="bx bx-history"></i>História</summary>
                         <ul>
                             <li>
-                                <RouterLink :to="{ name: 'home' }"
-                                    >Argument #1</RouterLink
-                                >
+                                <RouterLink :to="{ name: 'home' }">
+                                    Argument #1
+                                </RouterLink>
                             </li>
                             <li>
-                                <RouterLink :to="{ name: 'home' }"
-                                    >Argument #2</RouterLink
-                                >
+                                <RouterLink :to="{ name: 'home' }">
+                                    Argument #2
+                                </RouterLink>
                             </li>
                         </ul>
                     </details>
@@ -31,9 +31,9 @@
                     </RouterLink>
                 </li>
                 <li>
-                    <RouterLink :to="{ name: 'home' }">
+                    <button @click="handleLogout">
                         <i class="bx bxs-log-out"></i>Odhlásiť sa
-                    </RouterLink>
+                    </button>
                 </li>
             </ul>
         </aside>
@@ -51,4 +51,13 @@
 </template>
 <script setup>
 import { RouterLink } from "vue-router";
+import useAuth from "../../composables/useAuth";
+
+// Composables
+const { logout } = useAuth();
+
+// Functions
+async function handleLogout() {
+    await logout();
+}
 </script>

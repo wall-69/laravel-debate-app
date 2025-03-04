@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-4">
-        <h1 class="text-3xl">Vitaj, Tomáš!</h1>
+        <h1 class="text-3xl">Vitaj, {{ user.name }}!</h1>
 
         <div class="flex gap-4">
             <button class="btn btn-primary">
@@ -30,5 +30,9 @@
     </div>
 </template>
 <script setup>
+import { inject } from "vue";
 import { RouterLink } from "vue-router";
+
+// Define
+const user = inject("user");
 </script>
