@@ -51,4 +51,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Argument::class);
     }
+
+    public function theses()
+    {
+        return $this->hasManyThrough(
+            Thesis::class,  // Final model
+            Argument::class, // Intermediate model
+            'user_id',       // Foreign key in arguments table (linking to users)
+            'id',            // Primary key in theses table
+            'id',            // Primary key in users table
+            'thesis_id'      // Foreign key in arguments table (linking to theses)
+        );
+    }
 }

@@ -10,7 +10,7 @@
                 <p>
                     Po kliknutí na tlačítko
                     <span class="font-medium">Začať</span> sa vyberie náhodná
-                    téma na ktorú musíš napísať argument.
+                    téza na ktorú musíš napísať argument.
                     <br />
                     Na napísanie argumentu budeš mať 5 mínut.
                     <br />
@@ -22,14 +22,17 @@
             <button @click="startWriting" class="btn btn-primary w-min">
                 Začať
             </button>
+            <p v-show="error" class="text-sm font-bold text-error">
+                {{ error }}
+            </p>
         </template>
         <template v-else>
             <div
                 class="flex flex-col items-center min-w-full gap-2 bg-base-300 rounded-sm px-3 py-2 text-base-content"
             >
                 <h3 class="text-lg">
-                    <span class="text-secondary font-bold">Téma:</span> random
-                    tema idk rn bro
+                    <span class="text-secondary font-bold">Téza:</span>
+                    {{ thesis.content }}
                 </h3>
 
                 <p class="text-lg">
@@ -43,28 +46,50 @@
                     ref="argument"
                     @focus="error = ''"
                     rows="5"
-                    placeholder="Píš sem!"
+                    placeholder="Píš svoj argument sem!"
                     minlength="30"
                     :disabled="timeLeft <= 0"
                     class="textarea focus:outline-0 w-full"
                 ></textarea>
-                <button @click="submitArgument" class="btn btn-primary w-min">
+                <button
+                    @click="submitArgument"
+                    :disabled="isJudging"
+                    class="btn btn-primary w-min"
+                >
                     Odovzdať
                 </button>
-                <p show="error" class="text-sm font-bold text-error">
+                <p v-show="error" class="text-sm font-bold text-error">
                     {{ error }}
                 </p>
+                <div v-show="isJudging" class="bg-primary p-2 rounded-sm">
+                    <p class="font-bold text-primary-content">
+                        Hodnotím argument...
+                    </p>
+                </div>
+                <div
+                    v-if="judgement"
+                    class="bg-primary text-primary-content rounded-sm p-2"
+                >
+                    <h2 class="font-bold text-xl">Hodnotenie:</h2>
+                    <p>
+                        {{ judgement }}
+                    </p>
+                </div>
             </div>
         </template>
     </div>
 </template>
 <script setup>
 import { computed, ref } from "vue";
+import axios from "axios";
 
 // Variables
 const isWriting = ref(false);
+const isJudging = ref(false);
 const argument = ref(null);
 const timeLeft = ref(0);
+const thesis = ref("");
+const judgement = ref("");
 const error = ref("");
 
 let clockInterval = -1;
@@ -79,7 +104,16 @@ const timeLeftFormatted = computed(() => {
 });
 
 // Functions
-function startWriting() {
+async function startWriting() {
+    error.value = "";
+
+    thesis.value = await loadRandomThesis();
+    if (!thesis.value) {
+        error.value = "Nastala chyba, skúste znova.";
+        thesis.value = "";
+        return;
+    }
+
     timeLeft.value = 300;
 
     isWriting.value = true;
@@ -106,7 +140,30 @@ async function submitArgument() {
         return;
     }
 
-    isWriting.value = false;
     clearInterval(clockInterval);
+
+    isJudging.value = true;
+
+    try {
+        const response = await axios.post("/api/judge", {
+            thesis: thesis.value.content,
+            argument: argument.value.value,
+        });
+
+        judgement.value = response.data;
+    } catch (error) {
+        error.value = "Nastala chyba pri hodnotení.";
+    } finally {
+        isJudging.value = false;
+    }
+}
+
+async function loadRandomThesis() {
+    try {
+        const response = await axios.get("/api/theses/random");
+        return response.data;
+    } catch (err) {
+        return null;
+    }
 }
 </script>

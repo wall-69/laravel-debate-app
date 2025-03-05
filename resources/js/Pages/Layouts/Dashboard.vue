@@ -9,21 +9,20 @@
                     </RouterLink>
                 </li>
                 <li>
-                    <details>
+                    <details v-if="args.length > 0">
                         <summary><i class="bx bx-history"></i>História</summary>
                         <ul>
-                            <li>
-                                <RouterLink :to="{ name: 'home' }">
-                                    Argument #1
-                                </RouterLink>
-                            </li>
-                            <li>
-                                <RouterLink :to="{ name: 'home' }">
-                                    Argument #2
+                            <li v-for="arg in args">
+                                <RouterLink
+                                    :to="{ name: 'home' }"
+                                    class="text-xs"
+                                >
+                                    {{ arg.thesis.content }}
                                 </RouterLink>
                             </li>
                         </ul>
                     </details>
+                    <p v-else><i class="bx bx-history"></i>História</p>
                 </li>
                 <li>
                     <RouterLink :to="{ name: 'home' }">
@@ -52,12 +51,38 @@
 <script setup>
 import { RouterLink } from "vue-router";
 import useAuth from "../../composables/useAuth";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
 // Composables
 const { logout } = useAuth();
+
+// Lifecycle
+onMounted(async () => {
+    loadArguments();
+});
+
+// Variables
+const args = ref([]);
 
 // Functions
 async function handleLogout() {
     await logout();
 }
+
+async function loadArguments() {
+    await axios
+        .get("/api/arguments")
+        .then((response) => {
+            args.value = response.data;
+        })
+        .catch((error) => {
+            args.value = [];
+        });
+}
 </script>
+<style scoped>
+.hideAfter {
+    content: "";
+}
+</style>

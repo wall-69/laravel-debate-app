@@ -21,7 +21,6 @@ const routes = [
         component: () => import("../Pages/Register.vue"),
     },
     {
-        // TODO: auth guard
         path: "/dashboard",
         component: () => import("../Pages/Dashboard.vue"),
         beforeEnter: authGuard,
