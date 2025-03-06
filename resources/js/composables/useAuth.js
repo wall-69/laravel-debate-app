@@ -27,7 +27,7 @@ export default function useAuth() {
                 setAuthenticated(true);
                 setUser(response.data);
             })
-            .catch((error) => {
+            .catch((err) => {
                 setAuthenticated(false);
                 setUser({});
             });
@@ -42,7 +42,7 @@ export default function useAuth() {
 
                 router.replace({ name: "dashboard" });
             })
-            .catch((error) => {
+            .catch((err) => {
                 handleFormErrors(errors, error.response.data.errors || {});
             });
     }
@@ -62,7 +62,7 @@ export default function useAuth() {
             .then((response) => {
                 router.replace({ name: "login" });
             })
-            .catch((error) => {
+            .catch((err) => {
                 handleFormErrors(errors, error.response.data.errors || {});
             });
     }

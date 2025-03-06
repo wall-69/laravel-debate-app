@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-4">
         <h2 class="font-bold text-primary text-2xl">Nový argument</h2>
 
-        <template v-if="!isWriting">
+        <template v-if="state == ''">
             <div class="bg-base-300 rounded-sm px-3 py-2 text-base-content">
                 <h3 class="text-secondary text-lg font-bold">
                     Ako to funguje?
@@ -52,8 +52,9 @@
                     class="textarea focus:outline-0 w-full"
                 ></textarea>
                 <button
+                    v-show="state != 'finished'"
                     @click="submitArgument"
-                    :disabled="isJudging"
+                    :disabled="state != 'writing'"
                     class="btn btn-primary w-min"
                 >
                     Odovzdať
@@ -61,7 +62,10 @@
                 <p v-show="error" class="text-sm font-bold text-error">
                     {{ error }}
                 </p>
-                <div v-show="isJudging" class="bg-primary p-2 rounded-sm">
+                <div
+                    v-show="state == 'judging'"
+                    class="bg-primary p-2 rounded-sm"
+                >
                     <p class="font-bold text-primary-content">
                         Hodnotím argument...
                     </p>
@@ -81,8 +85,7 @@ import { computed, ref } from "vue";
 import axios from "axios";
 
 // Variables
-const isWriting = ref(false);
-const isJudging = ref(false);
+const state = ref("");
 const argument = ref(null);
 const timeLeft = ref(0);
 const thesis = ref("");
@@ -113,7 +116,7 @@ async function startWriting() {
 
     timeLeft.value = 300;
 
-    isWriting.value = true;
+    state.value = "writing";
 
     clockInterval = setInterval(() => {
         timeLeft.value -= 1;
@@ -139,7 +142,7 @@ async function submitArgument() {
 
     clearInterval(clockInterval);
 
-    isJudging.value = true;
+    state.value = "judging";
 
     try {
         const response = await axios.post("/api/judge", {
@@ -148,10 +151,10 @@ async function submitArgument() {
         });
 
         judgement.value = response.data;
-    } catch (error) {
+    } catch (err) {
         error.value = "Nastala chyba pri hodnotení.";
     } finally {
-        isJudging.value = false;
+        state.value = "finished";
     }
 }
 
@@ -165,19 +168,19 @@ async function loadRandomThesis() {
 }
 </script>
 <style scoped>
-.judgement >>> p {
+.judgement :deep(p) {
     font-weight: var(--font-weight-bold);
     font-size: var(--text-lg);
     line-height: var(--tw-leading, var(--text-lg--line-height));
 }
-.judgement >>> p:last-of-type {
+.judgement :deep(p:last-of-type) {
     margin-top: 16px;
 }
-.judgement >>> ol {
+.judgement :deep(ol) {
     list-style-type: decimal;
     list-style-position: inside;
 }
-.judgement >>> ul {
+.judgement :deep(ul) {
     list-style-type: disc;
     list-style-position: inside;
 }

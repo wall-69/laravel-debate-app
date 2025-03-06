@@ -37,6 +37,11 @@ const routes = [
             },
         ],
     },
+    {
+        path: "/argument/:id",
+        name: "argument-show",
+        component: () => import("../Pages/Argument.vue"),
+    },
 ];
 
 export default createRouter({

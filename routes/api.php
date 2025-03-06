@@ -9,59 +9,58 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Michelf\Markdown;
 
-Route::middleware("web")->group(function () {
-    Route::controller(UserController::class)->group(function () {
-        Route::middleware("guest")->group(function () {
-            Route::post("/users", "store");
-        });
-
-        Route::middleware("auth:sanctum")->group(function () {
-            Route::get("/user", "user");
-        });
+Route::controller(UserController::class)->group(function () {
+    Route::middleware("guest")->group(function () {
+        Route::post("/users", "store");
     });
 
-    Route::controller(AuthController::class)->group(function () {
-        Route::post("/auth/login", "login")->middleware("guest");
-        Route::post("/auth/logout", "logout")->middleware("auth:sanctum");
+    Route::middleware("auth:sanctum")->group(function () {
+        Route::get("/user", "user");
     });
+});
 
-    Route::controller(ArgumentController::class)->group(function () {
-        Route::get("/arguments/{argument}", "argumentById");
+Route::controller(AuthController::class)->group(function () {
+    Route::post("/auth/login", "login")->middleware("guest");
+    Route::post("/auth/logout", "logout")->middleware("auth:sanctum");
+});
 
-        Route::middleware("auth:sanctum")->group(function () {
-            Route::get("/arguments", "index");
-        });
+Route::controller(ArgumentController::class)->group(function () {
+    Route::get("/arguments/{argument}", "argumentById");
+
+    Route::middleware("auth:sanctum")->group(function () {
+        Route::get("/arguments", "index");
     });
+});
 
-    Route::controller(ThesisController::class)->group(function () {
-        Route::get("/theses/random", "random")->middleware("auth:sanctum");
-    });
+Route::controller(ThesisController::class)->group(function () {
+    Route::get("/theses/random", "random")->middleware("auth:sanctum");
+});
 
-    Route::post("/judge", function (Request $request) {
-        $data = $request->validate([
-            "thesis" => "required",
-            "argument" => "required|min:30|max:3000"
-        ]);
+Route::post("/judge", function (Request $request) {
+    $data = $request->validate([
+        "thesis" => "required",
+        "argument" => "required|min:30|max:3000"
+    ]);
 
-        $apiKey = env("GEMINI_API_KEY");
+    $apiKey = env("GEMINI_API_KEY");
 
-        $response = Http::withHeader("Content-Type", "application/json")
-            ->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$apiKey}", [
-                'contents' => [
-                    [
-                        'role' => 'user',
-                        'parts' => [
-                            [
-                                'text' => "T: $request->thesis\nA: $request->argument"
-                            ]
-                        ]
-                    ]
-                ],
-                'systemInstruction' => [
+    $response = Http::withHeader("Content-Type", "application/json")
+        ->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$apiKey}", [
+            'contents' => [
+                [
                     'role' => 'user',
                     'parts' => [
                         [
-                            "text" => "Pracuj v slovenskom jazyku.
+                            'text' => "T: $request->thesis\nA: $request->argument"
+                        ]
+                    ]
+                ]
+            ],
+            'systemInstruction' => [
+                'role' => 'user',
+                'parts' => [
+                    [
+                        "text" => "Pracuj v slovenskom jazyku.
 
 Najprv je zadefinovaná téma argumentu v prvom riadku, v ďalšom riadku je celý argument.
 Ohodnoť tento argument podľa logiky, argumentačných faulov, jednoduchosti, presnosti. 
@@ -79,26 +78,25 @@ Ak sa v argumente nachádza jeden z nižšie spomenutých pojmov, udeľ trestné
 Ad hominem (-1b), nadávky (-1b).
 
 Následne napíš poznámky k argumentu, tieto poznámky by sa mali týkať zlých argumentačných taktík, logických chýb a možností ako argument zlepšiť. Napíš 1 až 4 poznámky. Každú poznámku označ číselne."
-                        ]
                     ]
-                ],
-                'generationConfig' => [
-                    'temperature' => 1,
-                    'topK' => 40,
-                    'topP' => 0.95,
-                    'maxOutputTokens' => 1500,
-                    'responseMimeType' => 'text/plain',
-                ],
-            ]);
+                ]
+            ],
+            'generationConfig' => [
+                'temperature' => 1,
+                'topK' => 40,
+                'topP' => 0.95,
+                'maxOutputTokens' => 1500,
+                'responseMimeType' => 'text/plain',
+            ],
+        ]);
 
-        if ($response->successful()) {
-            $responseData = $response->json();
-            $markup = $responseData["candidates"][0]["content"]["parts"][0]["text"];
-            $html = Markdown::defaultTransform($markup);
-            return response()->json(str_replace(">\n", ">", $html));
-        } else {
-            // Handle error
-            return response()->json(['error' => 'Nastala chyba pri hodnotení.'], 500);
-        }
-    })->middleware("auth:sanctum");
-});
+    if ($response->successful()) {
+        $responseData = $response->json();
+        $markup = $responseData["candidates"][0]["content"]["parts"][0]["text"];
+        $html = Markdown::defaultTransform($markup);
+        return response()->json(str_replace(">\n", ">", $html));
+    } else {
+        // Handle error
+        return response()->json(['error' => 'Nastala chyba pri hodnotení.'], 500);
+    }
+})->middleware("auth:sanctum");

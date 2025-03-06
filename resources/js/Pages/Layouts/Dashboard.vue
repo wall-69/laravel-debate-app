@@ -14,7 +14,10 @@
                         <ul>
                             <li v-for="arg in args">
                                 <RouterLink
-                                    :to="{ name: 'home' }"
+                                    :to="{
+                                        name: 'argument-show',
+                                        params: { id: arg.id },
+                                    }"
                                     class="text-xs"
                                 >
                                     {{ arg.thesis.content }}
@@ -76,7 +79,7 @@ async function loadArguments() {
         .then((response) => {
             args.value = response.data;
         })
-        .catch((error) => {
+        .catch((err) => {
             args.value = [];
         });
 }
