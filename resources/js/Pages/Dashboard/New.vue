@@ -70,10 +70,7 @@
                     v-if="judgement"
                     class="bg-primary text-primary-content rounded-sm p-2"
                 >
-                    <h2 class="font-bold text-xl">Hodnotenie:</h2>
-                    <p>
-                        {{ judgement }}
-                    </p>
+                    <div v-html="judgement" class="judgement"></div>
                 </div>
             </div>
         </template>
@@ -167,3 +164,21 @@ async function loadRandomThesis() {
     }
 }
 </script>
+<style scoped>
+.judgement >>> p {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
+}
+.judgement >>> p:last-of-type {
+    margin-top: 16px;
+}
+.judgement >>> ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+}
+.judgement >>> ul {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+</style>
