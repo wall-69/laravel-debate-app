@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Thesis;
-use App\Models\User;
+use App\Models\Argument;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('arguments', function (Blueprint $table) {
+        Schema::create('judgements', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Thesis::class);
+            $table->foreignIdFor(Argument::class)->constrained()->cascadeOnDelete();
             $table->text("content");
             $table->timestamps();
         });
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('arguments');
+        Schema::dropIfExists('judgements');
     }
 };

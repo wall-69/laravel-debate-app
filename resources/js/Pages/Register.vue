@@ -1,7 +1,10 @@
 <template>
     <div class="grow flex flex-col items-center gap-4 justify-center">
         <h2 class="text-primary text-3xl font-bold">Zaregistrujte sa</h2>
-        <fieldset class="fieldset w-xs bg-base-200 p-4 rounded-box">
+        <form
+            @submit.prevent="handleSubmit"
+            class="fieldset w-xs bg-base-200 p-4 rounded-box"
+        >
             <!-- Name -->
             <label class="fieldset-label">Meno</label>
             <input
@@ -65,7 +68,7 @@
             </label>
             <p v-show="errors.tos" class="text-error">{{ errors.tos }}</p>
 
-            <button @click="handleSubmit" class="btn btn-neutral mt-4">
+            <button type="submit" class="btn btn-neutral mt-4">
                 Registrovať
             </button>
 
@@ -78,7 +81,7 @@
                     Prihlásiť sa.
                 </RouterLink>
             </p>
-        </fieldset>
+        </form>
     </div>
 </template>
 <script setup>

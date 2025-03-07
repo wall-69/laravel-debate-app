@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArgumentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JudgementController;
 use App\Http\Controllers\ThesisController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -16,6 +17,9 @@ Route::controller(UserController::class)->group(function () {
 
     Route::middleware("auth:sanctum")->group(function () {
         Route::get("/user", "user");
+
+        Route::patch("/users/{user}", "update");
+        Route::delete("/users/{user}", "destroy");
     });
 });
 
@@ -29,11 +33,16 @@ Route::controller(ArgumentController::class)->group(function () {
 
     Route::middleware("auth:sanctum")->group(function () {
         Route::get("/arguments", "index");
+        Route::post("/arguments", "store");
     });
 });
 
 Route::controller(ThesisController::class)->group(function () {
     Route::get("/theses/random", "random")->middleware("auth:sanctum");
+});
+
+Route::controller(JudgementController::class)->group(function () {
+    Route::post("/judgements", "store")->middleware("auth:sanctum");
 });
 
 Route::post("/judge", function (Request $request) {

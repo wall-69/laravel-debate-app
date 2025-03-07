@@ -28,7 +28,7 @@
                     <p v-else><i class="bx bx-history"></i>História</p>
                 </li>
                 <li>
-                    <RouterLink :to="{ name: 'home' }">
+                    <RouterLink :to="{ name: 'settings' }">
                         <i class="bx bxs-cog"></i>Nastavenia
                     </RouterLink>
                 </li>

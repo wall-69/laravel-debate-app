@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-4">
-        <h2 class="font-bold text-primary text-2xl">Nový argument</h2>
+        <h1 class="font-bold text-primary text-3xl">Nový argument</h1>
 
         <template v-if="state == ''">
             <div class="bg-base-300 rounded-sm px-3 py-2 text-base-content">
@@ -14,12 +14,19 @@
                     <br />
                     Na napísanie argumentu budeš mať 5 mínut.
                     <br />
-                    Argument bude po odovzdaní ohodnotený a dostaneš instantnú
-                    spätnú väzbu.
+                    Argument bude po odovzdaní ohodnotený a dostaneš spätnú
+                    väzbu (v čom je argument dobrý, ako by sa dal zlepšiť, ...).
+                    <br />
+                    <span class="text-xs"
+                        >(Argument je hodnotený umelou inteligenciou. Hodnotenie
+                        by nemalo byť brané vážne a má slúžiť ako simulácia
+                        hodnotenia OKM. Umelá inteligencia môže robiť chyby, byť
+                        nepresná a vymýšľať si nepravdy)</span
+                    >
                 </p>
             </div>
 
-            <button @click="startWriting" class="btn btn-primary w-min">
+            <button @click="startWriting" class="btn btn-primary w-fit">
                 Začať
             </button>
             <p v-show="error" class="text-sm font-bold text-error">
@@ -62,6 +69,13 @@
                 <p v-show="error" class="text-sm font-bold text-error">
                     {{ error }}
                 </p>
+                <button
+                    v-if="error && state == 'out of time'"
+                    @click="startWriting"
+                    class="btn btn-primary w-fit"
+                >
+                    Skúsiť znova
+                </button>
                 <div
                     v-show="state == 'judging'"
                     class="bg-primary p-2 rounded-sm"
@@ -81,8 +95,11 @@
     </div>
 </template>
 <script setup>
-import { computed, ref } from "vue";
+import { computed, inject, ref } from "vue";
 import axios from "axios";
+
+// Define
+const user = inject("user");
 
 // Variables
 const state = ref("");
@@ -99,13 +116,23 @@ const timeLeftFormatted = computed(() => {
     return (
         Math.floor(timeLeft.value / 60) +
         ":" +
-        (timeLeft.value % 60 ? timeLeft.value % 60 : "00")
+        (timeLeft.value % 60 >= 10
+            ? timeLeft.value % 60
+            : "0" + (timeLeft.value % 60))
     );
 });
 
 // Functions
 async function startWriting() {
+    if (state.value != "" && state.value != "out of time") {
+        return;
+    }
+    if (argument.value) {
+        argument.value.value = "";
+    }
     error.value = "";
+
+    state.value = "writing";
 
     thesis.value = await loadRandomThesis();
     if (!thesis.value) {
@@ -116,22 +143,28 @@ async function startWriting() {
 
     timeLeft.value = 300;
 
-    state.value = "writing";
-
     clockInterval = setInterval(() => {
         timeLeft.value -= 1;
         if (timeLeft.value == 0) {
             clearInterval(clockInterval);
+
+            submitArgument();
+
+            state.value = "out of time";
         }
     }, 1000);
 }
 
 async function submitArgument() {
+    if (state.value == "out of time" || !argument.value) {
+        return;
+    }
+
     const argumentValue = argument.value.value;
 
     // Too short argument
     if (argumentValue.length < 30) {
-        error.value = "Tento argument je moc krátky.";
+        error.value = "Tento argument je príliš krátky.";
         return;
     }
     // Too long argument
@@ -154,7 +187,24 @@ async function submitArgument() {
     } catch (err) {
         error.value = "Nastala chyba pri hodnotení.";
     } finally {
-        state.value = "finished";
+        state.value = "saving";
+
+        await axios
+            .post("/api/arguments", {
+                user_id: user.id,
+                thesis_id: thesis.value.id,
+                content: argument.value.value,
+            })
+            .then(async (response) => {
+                await axios
+                    .post("/api/judgements", {
+                        argument_id: response.data.id,
+                        content: judgement.value,
+                    })
+                    .then((response) => {
+                        state.value = "finished";
+                    });
+            });
     }
 }
 
@@ -167,21 +217,3 @@ async function loadRandomThesis() {
     }
 }
 </script>
-<style scoped>
-.judgement :deep(p) {
-    font-weight: var(--font-weight-bold);
-    font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
-}
-.judgement :deep(p:last-of-type) {
-    margin-top: 16px;
-}
-.judgement :deep(ol) {
-    list-style-type: decimal;
-    list-style-position: inside;
-}
-.judgement :deep(ul) {
-    list-style-type: disc;
-    list-style-position: inside;
-}
-</style>

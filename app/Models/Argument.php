@@ -19,4 +19,9 @@ class Argument extends Model
     {
         return $this->belongsTo(Thesis::class);
     }
+
+    public function judgement()
+    {
+        return $this->hasOne(Judgement::class);
+    }
 }

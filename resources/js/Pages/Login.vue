@@ -1,7 +1,10 @@
 <template>
     <div class="grow flex flex-col items-center gap-4 justify-center">
         <h2 class="text-primary text-3xl font-bold">Prihláste sa</h2>
-        <fieldset class="fieldset w-xs bg-base-200 p-4 rounded-box">
+        <form
+            @submit.prevent="handleSubmit"
+            class="fieldset w-xs bg-base-200 p-4 rounded-box"
+        >
             <!-- Email -->
             <label class="fieldset-label">Email</label>
             <input
@@ -24,7 +27,7 @@
                 {{ errors.password }}
             </p>
 
-            <button @click="handleSubmit" class="btn btn-neutral mt-4">
+            <button type="submit" class="btn btn-neutral mt-4">
                 Prihlásiť sa
             </button>
 
@@ -37,7 +40,7 @@
                     Registrovať sa.
                 </RouterLink>
             </p>
-        </fieldset>
+        </form>
     </div>
 </template>
 <script setup>

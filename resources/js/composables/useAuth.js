@@ -43,7 +43,7 @@ export default function useAuth() {
                 router.replace({ name: "dashboard" });
             })
             .catch((err) => {
-                handleFormErrors(errors, error.response.data.errors || {});
+                handleFormErrors(errors, err.response.data.errors || {});
             });
     }
 
@@ -63,7 +63,7 @@ export default function useAuth() {
                 router.replace({ name: "login" });
             })
             .catch((err) => {
-                handleFormErrors(errors, error.response.data.errors || {});
+                handleFormErrors(errors, err.response.data.errors || {});
             });
     }
 

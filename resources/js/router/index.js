@@ -32,8 +32,13 @@ const routes = [
             },
             {
                 path: "/new",
-                name: "new-argument",
+                name: "argument-new",
                 component: () => import("../Pages/Dashboard/New.vue"),
+            },
+            {
+                path: "/settings",
+                name: "settings",
+                component: () => import("../Pages/Dashboard/Settings.vue"),
             },
         ],
     },

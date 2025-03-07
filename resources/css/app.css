@@ -10,3 +10,29 @@
 @source "../**/*.blade.php";
 @source "../**/*.js";
 @source "../**/*.vue";
+
+@layer base {
+    /* Judgement */
+    .judgement p {
+        font-weight: var(--font-weight-bold);
+        font-size: var(--text-lg);
+        line-height: var(--tw-leading, var(--text-lg--line-height));
+    }
+    .judgement p:last-of-type {
+        margin-top: 16px;
+    }
+    .judgement ol {
+        list-style-type: decimal;
+        list-style-position: inside;
+    }
+    .judgement ul {
+        list-style-type: disc;
+        list-style-position: inside;
+    }
+}
+@layer utilities {
+    /* Input */
+    .input {
+        @apply focus:outline-none;
+    }
+}
