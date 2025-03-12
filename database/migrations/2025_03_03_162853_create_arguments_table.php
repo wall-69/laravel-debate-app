@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('arguments', function (Blueprint $table) {
-            $table->id();
+            $table->ulid()->primary();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Thesis::class);
             $table->text("content");

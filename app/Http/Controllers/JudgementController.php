@@ -10,7 +10,7 @@ class JudgementController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            "argument_id" => "required|exists:arguments,id",
+            "argument_ulid" => "required|exists:arguments,ulid",
             "content" => "required"
         ]);
 

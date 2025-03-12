@@ -198,7 +198,7 @@ async function submitArgument() {
             .then(async (response) => {
                 await axios
                     .post("/api/judgements", {
-                        argument_id: response.data.id,
+                        argument_ulid: response.data.ulid,
                         content: judgement.value,
                     })
                     .then((response) => {

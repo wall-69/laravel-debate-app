@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('judgements', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Argument::class)->constrained()->cascadeOnDelete();
+            $table->foreignUlid("argument_ulid")->constrained("arguments", "ulid")->cascadeOnDelete();
             $table->text("content");
             $table->timestamps();
         });

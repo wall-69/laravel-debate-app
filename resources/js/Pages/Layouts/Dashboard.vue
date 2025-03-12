@@ -16,7 +16,7 @@
                                 <RouterLink
                                     :to="{
                                         name: 'argument-show',
-                                        params: { id: arg.id },
+                                        params: { id: arg.ulid },
                                     }"
                                     class="text-xs"
                                 >

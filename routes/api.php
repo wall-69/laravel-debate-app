@@ -29,7 +29,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::controller(ArgumentController::class)->group(function () {
-    Route::get("/arguments/{argument}", "argumentById");
+    Route::get("/arguments/{argument}", "argumentByUlid");
 
     Route::middleware("auth:sanctum")->group(function () {
         Route::get("/arguments", "index");

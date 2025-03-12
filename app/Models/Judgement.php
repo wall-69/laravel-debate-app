@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Judgement extends Model
 {
     protected $fillable = [
-        "argument_id", "content"
+        "argument_ulid", "content"
     ];
 
     public function argument()

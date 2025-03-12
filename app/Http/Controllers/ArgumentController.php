@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ArgumentController extends Controller
 {
-    public function argumentById(Request $request, Argument $argument)
+    public function argumentByUlid(Request $request, Argument $argument)
     {
         return response()->json($argument->load("thesis")->load("judgement"));
     }

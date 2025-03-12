@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 
 class Argument extends Model
 {
+    use HasUlids;
+
+    protected $primaryKey = 'ulid';
+
     protected $fillable = [
         "user_id", "thesis_id", "content"
     ];
