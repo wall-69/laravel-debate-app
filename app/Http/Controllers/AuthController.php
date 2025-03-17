@@ -18,7 +18,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             return response()->json([
-                "user" => auth()->user()
+                "user" => auth()->user()->load("admin")
             ]);
         }
 

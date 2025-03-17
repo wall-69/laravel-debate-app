@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import guestGuard from "./guards/guestGuard";
 import authGuard from "./guards/authGuard";
+import adminGuard from "./guards/adminGuard";
 
 const routes = [
     {
@@ -39,6 +40,25 @@ const routes = [
                 path: "/settings",
                 name: "settings",
                 component: () => import("../Pages/Dashboard/Settings.vue"),
+            },
+            // Admin
+            {
+                path: "/admin",
+                beforeEnter: adminGuard,
+                children: [
+                    {
+                        name: "admin",
+                        path: "",
+                        component: () =>
+                            import("../Pages/Dashboard/Admin/Index.vue"),
+                    },
+                    {
+                        name: "admin-theses",
+                        path: "theses",
+                        component: () =>
+                            import("../Pages/Dashboard/Admin/Theses.vue"),
+                    },
+                ],
             },
         ],
     },

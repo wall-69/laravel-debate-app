@@ -37,6 +37,21 @@
                         <i class="bx bxs-log-out"></i>Odhlásiť sa
                     </button>
                 </li>
+
+                <!-- Admin -->
+                <template v-if="user.admin">
+                    <li class="menu-title">Admin</li>
+                    <li>
+                        <RouterLink :to="{ name: 'admin' }">
+                            <i class="bx bxs-wrench"></i>Admin
+                        </RouterLink>
+                    </li>
+                    <li>
+                        <RouterLink :to="{ name: 'admin-theses' }">
+                            <i class="bx bx-text"></i>Tézy
+                        </RouterLink>
+                    </li>
+                </template>
             </ul>
         </aside>
 
@@ -56,9 +71,13 @@ import { RouterLink } from "vue-router";
 import useAuth from "../../composables/useAuth";
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { provide } from "vue";
 
 // Composables
-const { logout } = useAuth();
+const { user, logout } = useAuth();
+
+// Define
+provide("user", user.value);
 
 // Lifecycle
 onMounted(async () => {

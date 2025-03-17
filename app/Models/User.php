@@ -64,4 +64,9 @@ class User extends Authenticatable
             'thesis_id'      // Foreign key in arguments table (linking to theses)
         );
     }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
+    }
 }

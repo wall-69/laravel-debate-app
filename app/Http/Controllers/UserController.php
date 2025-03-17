@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        return response()->json($request->user()->load("admin"));
     }
 
     public function store(Request $request)
