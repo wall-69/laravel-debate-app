@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JudgementController;
 use App\Http\Controllers\ThesisController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +39,15 @@ Route::controller(ArgumentController::class)->group(function () {
 });
 
 Route::controller(ThesisController::class)->group(function () {
-    Route::get("/theses/random", "random")->middleware("auth:sanctum");
+    Route::middleware("auth:sanctum")->group(function () {
+        Route::get("/theses/random", "random");
+
+        Route::middleware("admin")->group(function () {
+            Route::post("/theses", "store");
+            Route::patch("/theses/{thesis}", "update");
+            Route::delete("/theses/{thesis}", "destroy");
+        });
+    });
 });
 
 Route::controller(JudgementController::class)->group(function () {
