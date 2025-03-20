@@ -53,10 +53,25 @@ const routes = [
                             import("../Pages/Dashboard/Admin/Index.vue"),
                     },
                     {
-                        name: "admin-theses",
                         path: "theses",
-                        component: () =>
-                            import("../Pages/Dashboard/Admin/Theses.vue"),
+                        children: [
+                            {
+                                path: "",
+                                name: "admin-theses",
+                                component: () =>
+                                    import(
+                                        "../Pages/Dashboard/Admin/Theses/Index.vue"
+                                    ),
+                            },
+                            {
+                                path: "create",
+                                name: "admin-theses-create",
+                                component: () =>
+                                    import(
+                                        "../Pages/Dashboard/Admin/Theses/Create.vue"
+                                    ),
+                            },
+                        ],
                     },
                 ],
             },

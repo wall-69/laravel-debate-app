@@ -16,10 +16,15 @@ class ThesisController extends Controller
         return response()->json($theses->random());
     }
 
+    public function index()
+    {
+        return response()->json(Thesis::all());
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate([
-            "content" => "required|min:10"
+            "content" => "required|min:10|unique:theses,content"
         ]);
 
         $thesis = Thesis::create($data);

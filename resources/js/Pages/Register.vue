@@ -68,7 +68,7 @@
             </label>
             <p v-show="errors.tos" class="text-error">{{ errors.tos }}</p>
 
-            <button type="submit" class="btn btn-neutral mt-4">
+            <button type="submit" class="btn btn-primary mt-4">
                 Registrovať
             </button>
 
@@ -76,7 +76,7 @@
                 Už máte účet?
                 <RouterLink
                     :to="{ name: 'login' }"
-                    class="font-bold link link-accent"
+                    class="font-bold link link-secondary"
                 >
                     Prihlásiť sa.
                 </RouterLink>

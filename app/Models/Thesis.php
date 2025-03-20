@@ -13,6 +13,14 @@ class Thesis extends Model
         "content"
     ];
 
+    protected function casts(): array
+    {
+        return [
+            "created_at" => "datetime:d.m.Y H:i",
+            "updated_at" => "datetime:d.m.Y H:i",
+        ];
+    }
+
     public function arguments()
     {
         return $this->hasMany(Argument::class);

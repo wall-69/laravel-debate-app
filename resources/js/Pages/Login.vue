@@ -27,7 +27,7 @@
                 {{ errors.password }}
             </p>
 
-            <button type="submit" class="btn btn-neutral mt-4">
+            <button type="submit" class="btn btn-primary mt-4">
                 Prihlásiť sa
             </button>
 
@@ -35,7 +35,7 @@
                 Nemáte účet?
                 <RouterLink
                     :to="{ name: 'register' }"
-                    class="font-bold link link-accent"
+                    class="font-bold link link-secondary"
                 >
                     Registrovať sa.
                 </RouterLink>
