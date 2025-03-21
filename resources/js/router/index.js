@@ -71,6 +71,14 @@ const routes = [
                                         "../Pages/Dashboard/Admin/Theses/Create.vue"
                                     ),
                             },
+                            {
+                                path: "edit/:id",
+                                name: "admin-theses-edit",
+                                component: () =>
+                                    import(
+                                        "../Pages/Dashboard/Admin/Theses/Edit.vue"
+                                    ),
+                            },
                         ],
                     },
                 ],

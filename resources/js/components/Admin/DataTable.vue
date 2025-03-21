@@ -21,10 +21,19 @@
                         {{ val }}
                     </component>
                     <td class="flex justify-start items-center gap-4">
-                        <button class="btn btn-square btn-info btn-sm">
+                        <RouterLink
+                            :to="{
+                                name: 'admin-theses-edit',
+                                params: { id: row.id },
+                            }"
+                            class="btn btn-square btn-info btn-sm"
+                        >
                             <i class="bx text-sm bxs-edit"></i>
-                        </button>
-                        <button class="btn btn-square btn-sm btn-error">
+                        </RouterLink>
+                        <button
+                            @click="handleDelete(row.id)"
+                            class="btn btn-square btn-sm btn-error"
+                        >
                             <i class="bx text-sm text-white bxs-trash"></i>
                         </button>
                     </td>
@@ -45,6 +54,14 @@ const props = defineProps({
 
 // Lifecycle
 onMounted(async () => {
+    loadData();
+});
+
+// Variables
+const data = ref([]);
+
+// Functions
+async function loadData() {
     await axios
         .get("/api/" + props.modelName)
         .then((response) => {
@@ -53,8 +70,14 @@ onMounted(async () => {
         .catch((err) => {
             // TODO
         });
-});
+}
 
-// Variables
-const data = ref([]);
+async function handleDelete(id) {
+    confirm("Ste si istý?");
+    await axios
+        .delete("/api/" + props.modelName + "/" + id)
+        .then((response) => {
+            loadData();
+        });
+}
 </script>

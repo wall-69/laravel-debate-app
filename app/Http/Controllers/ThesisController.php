@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ThesisController extends Controller
 {
+    public function getById(Thesis $thesis)
+    {
+        return response()->json($thesis);
+    }
+
     public function random(Request $request)
     {
         $usedTheses = $request->user()->theses;

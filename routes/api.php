@@ -43,6 +43,7 @@ Route::controller(ThesisController::class)->group(function () {
         Route::get("/theses/random", "random");
 
         Route::middleware("admin")->group(function () {
+            Route::get("/theses/{thesis}", "getById");
             Route::get("/theses", "index");
             Route::post("/theses", "store");
             Route::patch("/theses/{thesis}", "update");
