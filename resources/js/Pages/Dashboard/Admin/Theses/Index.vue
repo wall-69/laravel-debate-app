@@ -1,13 +1,14 @@
 <template>
     <div class="flex flex-col gap-4">
-        <div class="flex justify-between">
-            <h2 class="text-2xl font-bold text-primary">Tézy</h2>
-            <RouterLink :to="{ name: 'admin-theses-create' }" class="btn"
-                >Nová téza</RouterLink
-            >
-        </div>
+        <h2 class="text-3xl font-bold text-primary">Tézy</h2>
 
-        <DataTable model-name="theses"></DataTable>
+        <DataTable model-name="theses">
+            <template #new-button>
+                <RouterLink :to="{ name: 'admin-theses-create' }" class="btn">
+                    Nová téza
+                </RouterLink>
+            </template>
+        </DataTable>
     </div>
 </template>
 <script setup>

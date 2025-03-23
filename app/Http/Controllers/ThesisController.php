@@ -21,9 +21,11 @@ class ThesisController extends Controller
         return response()->json($theses->random());
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Thesis::all());
+        $paginator = Thesis::search($request->search ?? "")->latest()->paginate(30);
+
+        return response()->json($paginator);
     }
 
     public function store(Request $request)

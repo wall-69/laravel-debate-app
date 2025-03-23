@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArgumentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\JudgementController;
+use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\ThesisController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\EnsureUserIsAdmin;
@@ -54,6 +55,12 @@ Route::controller(ThesisController::class)->group(function () {
 
 Route::controller(JudgementController::class)->group(function () {
     Route::post("/judgements", "store")->middleware("auth:sanctum");
+});
+
+Route::controller(StatisticController::class)->group(function () {
+    Route::middleware("admin")->group(function () {
+        Route::get("/admin/statistics", "adminStatistics");
+    });
 });
 
 Route::post("/judge", function (Request $request) {

@@ -47,10 +47,10 @@ const routes = [
                 beforeEnter: adminGuard,
                 children: [
                     {
-                        name: "admin",
-                        path: "",
+                        name: "admin-statistics",
+                        path: "statistics",
                         component: () =>
-                            import("../Pages/Dashboard/Admin/Index.vue"),
+                            import("../Pages/Dashboard/Admin/Statistics.vue"),
                     },
                     {
                         path: "theses",

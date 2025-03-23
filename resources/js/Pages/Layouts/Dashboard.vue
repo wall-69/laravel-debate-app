@@ -42,8 +42,8 @@
                 <template v-if="user.admin">
                     <li class="menu-title">Admin</li>
                     <li>
-                        <RouterLink :to="{ name: 'admin' }">
-                            <i class="bx bxs-wrench"></i>Admin
+                        <RouterLink :to="{ name: 'admin-statistics' }">
+                            <i class="bx bx-trending-up"></i>Štatistiky
                         </RouterLink>
                     </li>
                     <li>

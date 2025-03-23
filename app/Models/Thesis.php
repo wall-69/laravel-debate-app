@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,5 +25,10 @@ class Thesis extends Model
     public function arguments()
     {
         return $this->hasMany(Argument::class);
+    }
+
+    public function scopeSearch(Builder $query, string $search)
+    {
+        $query->where("content", "LIKE", "%$search%");
     }
 }
