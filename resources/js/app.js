@@ -7,10 +7,10 @@ import useAuth from "./composables/useAuth";
 const { attempt } = useAuth();
 
 // Attempt to get the user, if he is logged in
-await attempt();
+attempt().then(() => {
+    const app = createApp(App);
 
-const app = createApp(App);
+    app.use(router);
 
-app.use(router);
-
-app.mount("#app");
+    app.mount("#app");
+});

@@ -7,6 +7,7 @@
 	<title>Debate</title>
 	
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+	<script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
 	@vite(["resources/css/app.css", "resources/js/app.js"])
 </head>
 

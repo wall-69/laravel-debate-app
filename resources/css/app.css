@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
 @import "tailwindcss";
 
 @plugin "daisyui" {
@@ -14,13 +15,13 @@
     --color-base-200: oklch(98% 0 0);
     --color-base-300: oklch(95% 0 0);
     --color-base-content: oklch(21% 0.006 285.885);
-    --color-primary: oklch(58% 0.233 277.117);
-    --color-primary-content: oklch(93% 0.034 272.788);
-    --color-secondary: #9381ff;
-    --color-secondary-content: oklch(94% 0.028 342.258);
-    --color-accent: #91f5ad;
-    --color-accent-content: oklch(38% 0.063 188.416);
-    --color-neutral: oklch(44% 0.043 257.281);
+    --color-primary: #00d157;
+    --color-primary-content: #010204;
+    --color-secondary: #ffc466;
+    --color-secondary-content: #4d0000;
+    --color-accent: #22b5d3;
+    --color-accent-content: #000000;
+    --color-neutral: oklch(14% 0.005 285.823);
     --color-neutral-content: oklch(92% 0.004 286.32);
     --color-info: oklch(74% 0.16 232.661);
     --color-info-content: oklch(29% 0.066 243.157);
@@ -28,16 +29,20 @@
     --color-success-content: oklch(37% 0.077 168.94);
     --color-warning: oklch(82% 0.189 84.429);
     --color-warning-content: oklch(41% 0.112 45.904);
-    --color-error: oklch(57% 0.245 27.325);
+    --color-error: oklch(71% 0.194 13.428);
     --color-error-content: oklch(27% 0.105 12.094);
-    --radius-selector: 0.5rem;
+    --radius-selector: 0.25rem;
     --radius-field: 0.25rem;
     --radius-box: 0.25rem;
     --size-selector: 0.25rem;
     --size-field: 0.25rem;
     --border: 1px;
-    --depth: 1;
+    --depth: 0;
     --noise: 0;
+}
+
+@theme {
+    --font-roboto-slab: "Roboto Slab", "serif";
 }
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -47,6 +52,10 @@
 @source "../**/*.vue";
 
 @layer base {
+    html {
+        @apply font-roboto-slab;
+    }
+
     /* Judgement */
     .judgement p {
         font-weight: var(--font-weight-bold);
