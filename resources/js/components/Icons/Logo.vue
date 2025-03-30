@@ -1,5 +1,5 @@
 <template>
-    <div class="flex gap-2">
+    <div class="flex items-center gap-2">
         <svg
             fill="#00D157"
             version="1.1"
@@ -9,7 +9,7 @@
             viewBox="0 0 256 256"
             enable-background="new 0 0 256 256"
             xml:space="preserve"
-            class="w-16"
+            class="h-12 w-12 md:h-16 md:w-16"
         >
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g
@@ -25,9 +25,13 @@
         </svg>
 
         <div class="text-primary flex flex-col items-start justify-between">
-            <span class="text-3xl font-bold">QuickLogic</span>
+            <span class="text-lg font-bold md:text-2xl lg:text-3xl">
+                QuickLogic
+            </span>
 
-            <span class="text-lg">make arguments under pressure</span>
+            <span class="hidden text-base md:block md:text-lg">
+                make arguments under pressure
+            </span>
         </div>
     </div>
 </template>

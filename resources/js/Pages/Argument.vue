@@ -77,7 +77,6 @@ async function loadArgument() {
     await axios
         .get("/api/arguments/" + route.params.id)
         .then((response) => {
-            console.log(response);
             arg.value = response.data;
         })
         .catch((err) => {
