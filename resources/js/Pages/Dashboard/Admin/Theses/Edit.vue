@@ -13,7 +13,5 @@
     </div>
 </template>
 <script setup>
-import { onMounted, ref } from "vue";
 import DataEditForm from "../../../../components/Admin/DataEditForm.vue";
-import { useRoute } from "vue-router";
 </script>

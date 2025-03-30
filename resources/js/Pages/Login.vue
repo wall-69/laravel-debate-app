@@ -1,9 +1,9 @@
 <template>
-    <div class="grow flex flex-col items-center gap-4 justify-center">
+    <div class="flex grow flex-col items-center justify-center gap-4">
         <h2 class="text-primary text-3xl font-bold">Prihláste sa</h2>
         <form
             @submit.prevent="handleSubmit"
-            class="fieldset w-xs bg-base-200 p-4 rounded-box"
+            class="fieldset bg-base-200 rounded-box w-xs p-4"
         >
             <!-- Email -->
             <label class="fieldset-label">Email</label>
@@ -35,7 +35,7 @@
                 Nemáte účet?
                 <RouterLink
                     :to="{ name: 'register' }"
-                    class="font-bold link link-secondary"
+                    class="link link-secondary font-bold"
                 >
                     Registrovať sa.
                 </RouterLink>

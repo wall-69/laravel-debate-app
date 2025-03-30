@@ -2,7 +2,7 @@
     <main class="flex grow">
         <!-- Sidebar -->
         <aside class="bg-base-200 flex flex-col">
-            <ul class="h-full menu w-56 mt-8 text-lg">
+            <ul class="menu mt-8 h-full w-56 text-lg">
                 <li>
                     <RouterLink :to="{ name: 'dashboard' }">
                         <i class="bx bx-home"></i>Domov
@@ -55,7 +55,7 @@
             </ul>
         </aside>
 
-        <div class="p-8 grow">
+        <div class="grow p-8">
             <slot></slot>
         </div>
     </main>

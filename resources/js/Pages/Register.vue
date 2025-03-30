@@ -1,9 +1,9 @@
 <template>
-    <div class="grow flex flex-col items-center gap-4 justify-center">
+    <div class="flex grow flex-col items-center justify-center gap-4">
         <h2 class="text-primary text-3xl font-bold">Zaregistrujte sa</h2>
         <form
             @submit.prevent="handleSubmit"
-            class="fieldset w-xs bg-base-200 p-4 rounded-box"
+            class="fieldset bg-base-200 rounded-box w-xs p-4"
         >
             <!-- Name -->
             <label class="fieldset-label">Meno</label>
@@ -63,7 +63,7 @@
 
             <!-- TOS -->
             <label class="fieldset-label">
-                <input v-model="form.tos" type="checkbox" class="w-4 h-4" />
+                <input v-model="form.tos" type="checkbox" class="h-4 w-4" />
                 Súhlasím s podmienkami používania
             </label>
             <p v-show="errors.tos" class="text-error">{{ errors.tos }}</p>
@@ -76,7 +76,7 @@
                 Už máte účet?
                 <RouterLink
                     :to="{ name: 'login' }"
-                    class="font-bold link link-secondary"
+                    class="link link-secondary font-bold"
                 >
                     Prihlásiť sa.
                 </RouterLink>

@@ -13,7 +13,7 @@
 
         <template v-if="data.length > 0">
             <div
-                class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100"
+                class="rounded-box border-base-content/5 bg-base-100 overflow-x-auto border"
             >
                 <table class="table">
                     <!-- head -->
@@ -34,7 +34,7 @@
                             >
                                 {{ val }}
                             </component>
-                            <td class="flex justify-start items-center gap-4">
+                            <td class="flex items-center justify-start gap-4">
                                 <RouterLink
                                     :to="{
                                         name: 'admin-theses-edit',
@@ -42,14 +42,14 @@
                                     }"
                                     class="btn btn-square btn-info btn-sm"
                                 >
-                                    <i class="bx text-sm bxs-edit"></i>
+                                    <i class="bx bxs-edit text-sm"></i>
                                 </RouterLink>
                                 <button
                                     @click="handleDelete(row.id)"
                                     class="btn btn-square btn-sm btn-error"
                                 >
                                     <i
-                                        class="bx text-sm text-white bxs-trash"
+                                        class="bx bxs-trash text-sm text-white"
                                     ></i>
                                 </button>
                             </td>
@@ -76,7 +76,7 @@
                 </button>
             </div>
         </template>
-        <p v-else class="p-2 w-fit">Žiadne dáta neboli nájdené.</p>
+        <p v-else class="w-fit p-2">Žiadne dáta neboli nájdené.</p>
     </div>
 </template>
 <script setup>
@@ -157,6 +157,6 @@ watch(
         page.value = 1;
 
         loadData();
-    }
+    },
 );
 </script>

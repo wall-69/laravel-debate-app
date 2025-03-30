@@ -1,11 +1,11 @@
 <template>
-    <div class="flex flex-col gap-4 items-start">
-        <h1 class="font-bold text-primary text-3xl">Nastavenia</h1>
+    <div class="flex flex-col items-start gap-4">
+        <h1 class="text-primary text-3xl font-bold">Nastavenia</h1>
 
         <!-- Change email -->
         <div>
-            <h2 class="text-xl pb-1">Zmena emailu</h2>
-            <form @submit.prevent="changeEmail" class="flex gap-4 items-end">
+            <h2 class="pb-1 text-xl">Zmena emailu</h2>
+            <form @submit.prevent="changeEmail" class="flex items-end gap-4">
                 <div>
                     <label class="label">Nový email</label>
                     <input
@@ -39,8 +39,8 @@
 
         <!-- Change password -->
         <div>
-            <h2 class="text-xl pb-1">Zmena hesla</h2>
-            <form @submit.prevent="changePassword" class="flex gap-4 items-end">
+            <h2 class="pb-1 text-xl">Zmena hesla</h2>
+            <form @submit.prevent="changePassword" class="flex items-end gap-4">
                 <!-- New password -->
                 <div>
                     <label class="label">Nové heslo</label>
@@ -76,8 +76,8 @@
 
         <!-- Delete account -->
         <div>
-            <h2 class="text-xl pb-1">Vymazať účet</h2>
-            <form @submit.prevent="deleteAccount" class="flex gap-4 items-end">
+            <h2 class="pb-1 text-xl">Vymazať účet</h2>
+            <form @submit.prevent="deleteAccount" class="flex items-end gap-4">
                 <!-- Password -->
                 <div>
                     <label class="label">Heslo</label>
@@ -180,7 +180,7 @@ async function changePassword() {
         .catch((err) => {
             handleFormErrors(
                 changePasswordErrors,
-                err.response.data.errors || {}
+                err.response.data.errors || {},
             );
             changePasswordSuccess.value = "";
         });
@@ -205,7 +205,7 @@ async function deleteAccount() {
         .catch((err) => {
             handleFormErrors(
                 deleteAccountErrors,
-                err.response.data.errors || {}
+                err.response.data.errors || {},
             );
         });
 }

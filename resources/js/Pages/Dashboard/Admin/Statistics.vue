@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-4">
-        <h2 class="font-bold text-primary text-3xl">Štatistiky</h2>
+        <h2 class="text-primary text-3xl font-bold">Štatistiky</h2>
 
         <div class="stats stats-vertical lg:stats-horizontal shadow">
             <div class="stat">

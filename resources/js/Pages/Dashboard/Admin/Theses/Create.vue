@@ -13,7 +13,5 @@
     </div>
 </template>
 <script setup>
-import { onMounted, ref } from "vue";
 import DataCreateForm from "../../../../components/Admin/DataCreateForm.vue";
-import { RouterLink } from "vue-router";
 </script>

@@ -24,7 +24,7 @@
             </g>
         </svg>
 
-        <div class="flex flex-col items-start justify-between text-primary">
+        <div class="text-primary flex flex-col items-start justify-between">
             <span class="text-3xl font-bold">QuickLogic</span>
 
             <span class="text-lg">make arguments under pressure</span>

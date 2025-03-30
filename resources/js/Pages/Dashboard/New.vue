@@ -1,9 +1,9 @@
 <template>
     <div class="flex flex-col gap-4">
-        <h1 class="font-bold text-primary text-3xl">Nový argument</h1>
+        <h1 class="text-primary text-3xl font-bold">Nový argument</h1>
 
         <template v-if="state == ''">
-            <div class="bg-base-300 rounded-sm px-3 py-2 text-base-content">
+            <div class="bg-base-300 text-base-content rounded-sm px-3 py-2">
                 <h3 class="text-secondary text-lg font-bold">
                     Ako to funguje?
                 </h3>
@@ -29,13 +29,13 @@
             <button @click="startWriting" class="btn btn-primary w-fit">
                 Začať
             </button>
-            <p v-show="error" class="text-sm font-bold text-error">
+            <p v-show="error" class="text-error text-sm font-bold">
                 {{ error }}
             </p>
         </template>
         <template v-else>
             <div
-                class="flex flex-col items-center min-w-full gap-2 bg-base-300 rounded-sm px-3 py-2 text-base-content"
+                class="bg-base-300 text-base-content flex min-w-full flex-col items-center gap-2 rounded-sm px-3 py-2"
             >
                 <h3 class="text-lg">
                     <span class="text-secondary font-bold">Téza:</span>
@@ -48,7 +48,7 @@
                 </p>
             </div>
 
-            <div class="flex flex-col gap-2 text-base-content">
+            <div class="text-base-content flex flex-col gap-2">
                 <textarea
                     ref="argument"
                     @focus="error = ''"
@@ -56,7 +56,7 @@
                     placeholder="Píš svoj argument sem!"
                     minlength="30"
                     :disabled="timeLeft <= 0"
-                    class="textarea focus:outline-0 w-full"
+                    class="textarea w-full focus:outline-0"
                 ></textarea>
                 <button
                     v-show="state != 'finished'"
@@ -66,7 +66,7 @@
                 >
                     Odovzdať
                 </button>
-                <p v-show="error" class="text-sm font-bold text-error">
+                <p v-show="error" class="text-error text-sm font-bold">
                     {{ error }}
                 </p>
                 <button
@@ -78,9 +78,9 @@
                 </button>
                 <div
                     v-show="state == 'judging'"
-                    class="bg-primary p-2 rounded-sm"
+                    class="bg-primary rounded-sm p-2"
                 >
-                    <p class="font-bold text-primary-content">
+                    <p class="text-primary-content font-bold">
                         Hodnotím argument...
                     </p>
                 </div>

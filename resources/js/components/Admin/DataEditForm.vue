@@ -2,10 +2,10 @@
     <form
         v-if="!error"
         @submit.prevent="handleSubmit"
-        class="flex flex-col items-center p-4 gap-4 bg-base-300"
+        class="bg-base-300 flex flex-col items-center gap-4 p-4"
     >
         <div class="flex flex-col items-center">
-            <h2 class="text-primary font-bold text-3xl">
+            <h2 class="text-primary text-3xl font-bold">
                 <slot name="header"></slot>
             </h2>
         </div>

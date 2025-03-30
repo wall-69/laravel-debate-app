@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-4">
-        <h1 class="text-primary font-bold text-3xl">Vitaj, {{ user.name }}!</h1>
+        <h1 class="text-primary text-3xl font-bold">Vitaj, {{ user.name }}!</h1>
 
         <div class="flex gap-4">
             <button class="btn btn-primary">

@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col gap-4">
-        <h2 class="text-3xl font-bold text-primary">Tézy</h2>
+        <h2 class="text-primary text-3xl font-bold">Tézy</h2>
 
         <DataTable model-name="theses">
             <template #new-button>
@@ -12,7 +12,6 @@
     </div>
 </template>
 <script setup>
-import { onMounted, ref } from "vue";
 import DataTable from "../../../../components/Admin/DataTable.vue";
 import { RouterLink } from "vue-router";
 </script>
