@@ -10,9 +10,9 @@
                 }"
             >
                 <RouterLink
-                    :to="{ name: authenticated ? 'home' : 'dashboard' }"
+                    :to="{ name: authenticated ? 'dashboard' : 'home' }"
                 >
-                    <Logo></Logo>
+                    <Logo color="primary"></Logo>
                 </RouterLink>
 
                 <ul class="hidden items-center gap-8 md:flex">
@@ -256,6 +256,10 @@
                 <RouterLink to="" class="link link-hover">
                     Zásady ochrany osobných údajov
                 </RouterLink>
+
+                <p class="mt-4">
+                    Copyright © {{ new Date().getFullYear() }} - Tomáš Kriško
+                </p>
             </nav>
         </footer>
     </div>

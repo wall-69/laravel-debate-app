@@ -6,7 +6,7 @@
                 <textarea
                     v-model="form.content"
                     name="content"
-                    class="textarea min-w-sm"
+                    class="textarea sm:min-w-sm"
                 ></textarea>
             </template>
         </DataEditForm>

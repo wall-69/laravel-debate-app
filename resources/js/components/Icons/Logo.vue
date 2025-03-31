@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center gap-2">
         <svg
-            fill="#00D157"
+            :fill="fillColor"
             version="1.1"
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,10 @@
             </g>
         </svg>
 
-        <div class="text-primary flex flex-col items-start justify-between">
+        <div
+            class="flex flex-col items-start justify-between"
+            :class="['text-' + color]"
+        >
             <span class="text-lg font-bold md:text-2xl lg:text-3xl">
                 QuickLogic
             </span>
@@ -35,3 +38,20 @@
         </div>
     </div>
 </template>
+<script setup>
+import { computed } from "vue";
+
+// Define
+const props = defineProps({
+    color: String,
+});
+
+// Computed
+const fillColor = computed(() => {
+    return {
+        primary: "#00d157",
+        secondary: "#ffc466",
+        accent: "#22b5d3",
+    }[props.color];
+});
+</script>

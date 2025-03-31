@@ -1,11 +1,14 @@
 <template>
-    <div class="flex flex-col items-start gap-4">
+    <div class="flex flex-col items-start gap-8">
         <h1 class="text-primary text-3xl font-bold">Nastavenia</h1>
 
         <!-- Change email -->
         <div>
             <h2 class="pb-1 text-xl">Zmena emailu</h2>
-            <form @submit.prevent="changeEmail" class="flex items-end gap-4">
+            <form
+                @submit.prevent="changeEmail"
+                class="flex flex-wrap items-end gap-4"
+            >
                 <div>
                     <label class="label">Nový email</label>
                     <input
@@ -40,7 +43,10 @@
         <!-- Change password -->
         <div>
             <h2 class="pb-1 text-xl">Zmena hesla</h2>
-            <form @submit.prevent="changePassword" class="flex items-end gap-4">
+            <form
+                @submit.prevent="changePassword"
+                class="flex flex-wrap items-end gap-4"
+            >
                 <!-- New password -->
                 <div>
                     <label class="label">Nové heslo</label>
@@ -77,7 +83,10 @@
         <!-- Delete account -->
         <div>
             <h2 class="pb-1 text-xl">Vymazať účet</h2>
-            <form @submit.prevent="deleteAccount" class="flex items-end gap-4">
+            <form
+                @submit.prevent="deleteAccount"
+                class="flex flex-wrap items-end gap-4"
+            >
                 <!-- Password -->
                 <div>
                     <label class="label">Heslo</label>

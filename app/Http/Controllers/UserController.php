@@ -51,7 +51,7 @@ class UserController extends Controller
                 auth("web")->login($user);
             }
 
-            return response()->json($user);
+            return response()->json($user->load("admin"));
         }
 
         throw ValidationException::withMessages([

@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-4">
         <h1 class="text-primary text-3xl font-bold">Vitaj, {{ user.name }}!</h1>
 
-        <div class="flex gap-4">
+        <div class="flex flex-col items-stretch gap-4 md:flex-row md:flex-wrap">
             <button class="btn btn-primary">
                 <RouterLink :to="{ name: 'argument-new' }">
                     Nový argument

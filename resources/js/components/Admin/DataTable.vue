@@ -16,7 +16,7 @@
                 class="rounded-box border-base-content/5 bg-base-100 overflow-x-auto border"
             >
                 <table class="table">
-                    <!-- head -->
+                    <!-- Table head -->
                     <thead>
                         <tr>
                             <th v-for="column in Object.keys(data[0])">
@@ -25,7 +25,7 @@
                             <th>Akcie</th>
                         </tr>
                     </thead>
-                    <!-- body -->
+                    <!-- Table body -->
                     <tbody>
                         <tr v-for="row in data">
                             <component
@@ -34,24 +34,29 @@
                             >
                                 {{ val }}
                             </component>
-                            <td class="flex items-center justify-start gap-4">
-                                <RouterLink
-                                    :to="{
-                                        name: 'admin-theses-edit',
-                                        params: { id: row.id },
-                                    }"
-                                    class="btn btn-square btn-info btn-sm"
+                            <!-- Actions -->
+                            <td>
+                                <div
+                                    class="flex items-center justify-start gap-4"
                                 >
-                                    <i class="bx bxs-edit text-sm"></i>
-                                </RouterLink>
-                                <button
-                                    @click="handleDelete(row.id)"
-                                    class="btn btn-square btn-sm btn-error"
-                                >
-                                    <i
-                                        class="bx bxs-trash text-sm text-white"
-                                    ></i>
-                                </button>
+                                    <RouterLink
+                                        :to="{
+                                            name: 'admin-theses-edit',
+                                            params: { id: row.id },
+                                        }"
+                                        class="btn btn-square btn-info btn-sm"
+                                    >
+                                        <i class="bx bxs-edit text-sm"></i>
+                                    </RouterLink>
+                                    <button
+                                        @click="handleDelete(row.id)"
+                                        class="btn btn-square btn-sm btn-error"
+                                    >
+                                        <i
+                                            class="bx bxs-trash text-sm text-white"
+                                        ></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
